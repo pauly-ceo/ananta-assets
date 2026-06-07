@@ -407,6 +407,16 @@ footer .legal{margin-top:36px;padding-top:24px;border-top:1px solid var(--line-o
   .kb-stage .kb-slide{animation:none;opacity:1;transform:none}
   .kb-stage .kb-slide:not(:first-child){display:none}
 }
+
+/* Mobile: in .split sections, visual (video) appears ABOVE copy for visual rhythm */
+@media (max-width: 768px), (hover: none), (pointer: coarse){
+  .split{display:flex !important;flex-direction:column !important}
+  .split .copy{order:2}
+  .split .visual{order:1;min-height:55vh;width:100%;margin:0 0 0 0}
+  .split.reverse{flex-direction:column !important}
+  .split.reverse .copy{order:2}
+  .split.reverse .visual{order:1;min-height:55vh}
+}
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important}
   .reveal{opacity:1;transform:none}
