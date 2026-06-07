@@ -470,9 +470,9 @@ footer .legal{margin-top:36px;padding-top:24px;border-top:1px solid var(--line-o
     <p class="v-lead reveal delay-2">MyResorts is a Czech-led developer and operator of boutique hospitality projects on Bali. We design, build, and run resorts that work as homes for their owners and as businesses for their guests &mdash; with a single team accountable for both.</p>
     <div class="v-divider reveal delay-3"></div>
     <div class="v-stats">
-      <div class="v-stat reveal"><div class="vsn">3</div><span class="vsl">Resorts</span></div>
-      <div class="v-stat reveal delay-1"><div class="vsn">54</div><span class="vsl">Villas &amp; apartments</span></div>
-      <div class="v-stat reveal delay-2"><div class="vsn">15<em>M</em></div><span class="vsl">USD portfolio value</span></div>
+      <div class="v-stat reveal"><div class="vsn" data-count="3">0</div><span class="vsl">Resorts</span></div>
+      <div class="v-stat reveal delay-1"><div class="vsn" data-count="54">0</div><span class="vsl">Villas &amp; apartments</span></div>
+      <div class="v-stat reveal delay-2"><div class="vsn" data-count="15" data-suffix-html="&lt;em&gt;M&lt;/em&gt;">0</div><span class="vsl">USD portfolio value</span></div>
     </div>
   </div>
 </section>
@@ -865,6 +865,33 @@ footer .legal{margin-top:36px;padding-top:24px;border-top:1px solid var(--line-o
       startAllVideos();
     }, {passive:true});
   });
+
+
+  // Count-up animation for Vision stats (ruleta)
+  var statsObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var el = entry.target;
+      var target = parseInt(el.dataset.count);
+      var suffixHtml = el.dataset.suffixHtml || '';
+      // Unescape HTML entities for suffix (e.g., &lt;em&gt; → <em>)
+      suffixHtml = suffixHtml.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+      var duration = 1800;
+      var start = null;
+      function step(ts){
+        if(!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.floor(target * eased);
+        el.innerHTML = current + suffixHtml;
+        if(progress < 1) requestAnimationFrame(step);
+        else el.innerHTML = target + suffixHtml;
+      }
+      requestAnimationFrame(step);
+      statsObs.unobserve(el);
+    });
+  }, {threshold: 0.5});
+  document.querySelectorAll('.vsn[data-count]').forEach(function(el){ statsObs.observe(el); });
 
   var nav = document.getElementById('nav');
   function onScroll(){
