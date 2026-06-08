@@ -418,6 +418,14 @@ footer .legal{margin-top:36px;padding-top:24px;border-top:1px solid var(--line-o
   .split.reverse .copy{order:1}
   .split.reverse .visual{order:2;min-height:55vh}
 }
+
+.scribble{position:relative;display:inline-block;padding:0 .2em}
+.scribble .scribble-word{position:relative;z-index:1;color:inherit}
+.scribble .scribble-svg{position:absolute;top:-30%;left:-15%;width:130%;height:160%;pointer-events:none;z-index:2;color:var(--gold);overflow:visible}
+.scribble .scribble-svg.scribble-underline{top:auto;bottom:-25%;left:-10%;width:120%;height:60%}
+.scribble .scribble-svg path{stroke-dasharray:520;stroke-dashoffset:520;transition:stroke-dashoffset 1.6s cubic-bezier(.4,.0,.2,1)}
+.scribble.in .scribble-svg path{stroke-dashoffset:0}
+
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important}
   .reveal{opacity:1;transform:none}
@@ -680,7 +688,7 @@ footer .legal{margin-top:36px;padding-top:24px;border-top:1px solid var(--line-o
 <section class="climax">
   <div class="section-num" style="color:var(--gold-soft);opacity:.7">13 · Track record</div>
   <div class="wrap">
-    <div class="range reveal">18 months</div>
+    <div class="range reveal"><span class="scribble"><span class="scribble-word">18 months</span><svg class="scribble-svg scribble-underline" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M 5 20 Q 30 10, 60 22 T 110 22 T 160 22 T 195 18" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div>
     <div class="label reveal delay-1">From groundbreaking to handover</div>
     <div class="sub reveal delay-2">Eight villas <span style="opacity:.5">·</span> seven owners <span style="opacity:.5">·</span> <em>Desa Kutuh, Nusa Dua</em></div>
   </div>
